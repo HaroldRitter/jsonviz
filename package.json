@@ -1,0 +1,25 @@
+{
+  "name": "jsonviz",
+  "version": "0.0.1",
+  "description": "A Node.js module that converts JSON to DOT language and can create GraphViz graphics with viz.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaroldRitter/jsonviz.git"
+  },
+  "keywords": [
+    "JSON",
+    "UML",
+    "Viz",
+    "Graph"
+  ],
+  "author": "Harold Ritter <harold.ritter@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HaroldRitter/jsonviz/issues"
+  },
+  "homepage": "https://github.com/HaroldRitter/jsonviz#readme"
+}
