@@ -53,6 +53,16 @@ JSONGraph.prototype.generate = function(dotOpts)
     return o;
 };
 
+JSONGraph.prototype.save = function(path, dotOpts, cb)
+{
+    if(dotOpts && typeof(dotOpts) != "object")
+    {
+        cb = dotOpts;
+        dotOpts = undefined;
+    }
+    return this.generate(dotOpts).save(path, cb);
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
