@@ -271,5 +271,5 @@ The jsonviz module produces DOT language and then svg graphics with the
 here are some documentations on the GraphViz web site:
 
 * [Syntax guide](https://graphviz.gitlab.io/_pages/doc/info/lang.html)
-* [Attribtue reference](https://www.graphviz.org/doc/info/attrs.html)
+* [Attribute reference](https://www.graphviz.org/doc/info/attrs.html)
 * [Shape reference](https://www.graphviz.org/doc/info/shapes.html)
