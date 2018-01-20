@@ -81,6 +81,20 @@ JSONGraph.prototype.save = function(path, dotOpts, cb)
     return this.generate(dotOpts).save(path, cb);
 };
 
+JSONGraph.prototype.clone = function(name)
+{
+    return new JSONGraph({
+        strict: this.strict,
+        type: this.type,
+        name: name || this.name,
+        graph: __clone(this.graph),
+        node: __clone(this.node),
+        edge: __clone(this.edge),
+        styles: __clone(this.styles),
+        statements: __clone(this.statements)
+    });
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
@@ -270,6 +284,34 @@ function __ID(s)
         return "<" + s + ">";
     }
     return "\"" + __escapeHTML(__escapeString(s)) + "\"";
+}
+
+
+// --> Clone
+
+function __cloneA(o)
+{
+    var c = [], i = 0;
+    for(; i < o.length; i++)
+    {
+        c[i] = __clone(o[i]);
+    }
+    return c;
+}
+
+function __cloneO(o)
+{
+    var c = {}, n;
+    for(n in o)
+    {
+        c[n] = __clone(o[n]);
+    }
+    return c;
+}
+
+function __clone(v)
+{
+    return v && typeof(v) == "object" ? (v instanceof Array ? __cloneA(v) : __cloneO(v)) : v;
 }
 
 
