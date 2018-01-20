@@ -16,6 +16,7 @@ function JSONGraph(opts)
     this.graph = opts.graph || {};
     this.node = opts.node || {};
     this.edge = opts.edge || {};
+    this.styles = opts.styles || {};
     this.statements = opts.statements || opts.stmts || [];
     
     this._computedDot = null;
@@ -135,9 +136,39 @@ Object.defineProperties(JSONGraph.prototype,
         return a ? tab + n + " " + a + ";\n" : "";
     }},
     
+    _styles: {value:  function(n)
+    {
+        if(n instanceof Array)
+        {
+            var str = "", s, i = 0;
+            for(; i < n.length; i++)
+            {
+                s = this._styles(n[i]);
+                if(s)
+                {
+                    if(str) str += ", ";
+                    str += s;
+                }
+            }
+            return str;
+        }
+        s = this.styles[n];
+        return s ? this._nAttributes(s) : "";
+    }},
+    
     _attributes: {value:  function(attrs)
     {
-        var str = this._nAttributes(attrs);
+        var str = "";
+        
+        // Attributes is a string ref
+        if(typeof(attrs) == "string" || attrs instanceof Array)
+        {
+            str = this._styles(attrs);
+        }
+        else
+        {
+            str = this._nAttributes(attrs);
+        }
         
         return str ? " [" + str + "]" : "";
     }},
@@ -149,7 +180,8 @@ Object.defineProperties(JSONGraph.prototype,
         for(n in attrs)
         {
             if(str) str += ", ";
-            str += __ID(n) + "=" + __ID(attrs[n]);
+            str += n == "ref" ? this._styles(attrs[n]) :
+                        __ID(n) + "=" + __ID(attrs[n]);
         }
         
         return str;
