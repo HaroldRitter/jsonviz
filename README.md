@@ -176,6 +176,13 @@ console.log("SVG:\n" + svg);
         
         **Returns**: ``JSONGraph.SVG`` - the generated svg.
     </dd>
+       
+  <dt>``JSONGraph clone()``</dt>
+    <dd>
+        Clones the ``JSONGraph`` instance by deeply copying all the attributes.
+        
+        **Returns**: ``JSONGraph`` - the cloned instance.
+    </dd>
 </dl>
 
 ### JSONGraph.SVG class
