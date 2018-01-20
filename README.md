@@ -66,20 +66,33 @@ console.log("SVG:\n" + svg);
   <dt>``string name``</dt>
     <dd>Provides a name the graph.</dd>
   
-  <dt>``object graph``</dt>
+  <dt>``object|string|string[] graph``</dt>
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
-        that define the appearence of the graph.</dd>
+        that define the appearence of the graph. It can also be one or several
+        references to a style in ``styles``.</dd>
     
-  <dt>``object node``</dt>
+  <dt>``object|string|string[] node``</dt>
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
-        that define the generic appearence of all nodes.</dd>
+        that define the generic appearence of all nodes. It can also be one or several
+        references to a style in ``styles``.</dd>
   
-  <dt>``object edge``</dt>
+  <dt>``object|string|string[] edge``</dt>
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
-        that define the generic appearence of all edges.</dd>
+        that define the generic appearence of all edges. It can also be one or several
+        references to a style in ``styles``.</dd>
+  
+  <dt>``object styles``</dt>
+    <dd>
+        A key-value pair of styles that are themselves a key-value pair of
+        <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>.
+        A style can be used inside the attributes on any statement with
+        the ``(string|string[]) ref`` attribute. It can also be used instead
+        of the attribute list in a statement or for inside the global styles
+        (``graph``, ``node``, ``edge``).
+    </dd>
   
   <dt>``(string|JSONGraph|object)[] statements``</dt>
     <dd>
@@ -90,10 +103,11 @@ console.log("SVG:\n" + svg);
         * Or a key-value pair ``object`` that contains the statement and attributes.
         ** ``string statement`` or ``stmt``: the statement without the attributes such like 
         ``RGB`` or ``RGB -> Color``
-        ** ``object attributes`` or ``attrs``: the key-value pair of 
+        ** ``object|string|string[] attributes`` or ``attrs``: the key-value pair of 
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a> that define
         the appearence of the node, if the statement is just a node identifier,
-        or the edge(s) in other cases.
+        or the edge(s) in other cases. It can also be one or several
+        references to a style in ``styles``.
     </dd>
 </dl>
 
