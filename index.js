@@ -5,6 +5,7 @@
 var Viz = require("viz.js"),
     fs = require("fs");
 
+// ------------------------------------------- //
 // ------------ CLASS JSONGraph ------------ //
 
 function JSONGraph(opts)
