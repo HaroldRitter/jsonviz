@@ -255,6 +255,15 @@ JSONGraph.HTML("<i>A</i>");
     </dd>
 </dl>
 
+## Additional attributes
+
+In addition of the [DOT language attributes](https://www.graphviz.org/doc/info/attrs.html),
+*jsonviz* provides its own attributes :
+
+* ``string|string[] ref``: the name(s) of a style(s) stored inside the ``JSONGraph#styles``
+attribute. The attribute of the style(s) will be copied in order before the attribute
+list that contains the reference.
+
 ## DOT language
 
 The jsonviz module produces DOT language and then svg graphics with the
