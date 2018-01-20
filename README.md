@@ -50,7 +50,7 @@ var svg = jsonviz.save("./UML.svg");
 console.log("SVG:\n" + svg);
 ```
 
-#### JSONGraph instance attributes
+#### JSONGraph attributes
 
 <dl>
   <dt>``boolean strict``</dt>
@@ -94,5 +94,72 @@ console.log("SVG:\n" + svg);
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a> that define
         the appearence of the node, if the statement is just a node identifier,
         or the edge(s) in other cases.
+    </dd>
+</dl>
+
+#### JSONGraph methods
+
+<dl>
+  <dt>``static boolean generate(object opts[, object dotOpts[, string path[, function cb(string error)]]])``<br/>
+  ``static boolean generate(object opts[, object dotOpts[, string path[, boolean ansyc]]])``<br/>
+  ``static boolean generate(object opts[, string path[, function cb(string error)]])``<br/>
+  ``static boolean generate(object opts[, string path[, boolean async]])``
+  </dt>
+    <dd>
+        Generates the svg text from the JSONGraph options, and save it if ``path`` is defined.
+        
+        **Arguments**:
+        - ``object opts``: the JSONGraph constructor options
+        - ``object dotOpts={}``: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
+        - ``string path=""``: the path where to save the final svg file. If it is not set, the result is not saved.
+        - ``function cb(string error)=null``: the callback used after the result is saved in the given path.
+        - ``boolean async=false``: instead of using a callback, set async to true to save the result asynchromously.
+        
+        **Returns**: ``JSONGraph.SVG`` - the generated SVG.
+    </dd>
+    
+  <dt>``JSONGraph reset()``</dt>
+    <dd>
+        Resets the dot code generated. Uses that function if the arguments where changed after
+        a call to the ``dot``, ``generate`` or ``save`` method.
+        
+        **Returns**: ``JSONGraph`` - this instance to chain actions.
+    </dd>
+    
+  <dt>``JSONGraph dot()``</dt>
+    <dd>
+        Generates the dot code according to the attributes values, and returns it.
+        The generated code is internaly stored. The ``reset`` method can be used to remove it.
+        
+        **Returns**: ``string`` - the dot code used by GraphViz to generate the final graph.
+    </dd>
+    
+  <dt>``JSONGraph.SVG generate([object dotOpts])``</dt>
+    <dd>
+        Generates the final svg graph text according to the attributes values.
+        
+        **Arguments**:
+        - ``object dotOpts={}``: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
+        
+        **Returns**: ``JSONGraph.SVG`` - the generated svg.
+    </dd>   
+    
+  <dt>
+  ``JSONGraph.SVG save(string path[, object dotOpts[, function cb(string error)]])``<br/>
+  ``JSONGraph.SVG save(string path[, object dotOpts[, boolean asnyc]])``<br/>
+  ``JSONGraph.SVG save(string path[, function cb(string error)]])``<br/>
+  ``JSONGraph.SVG save(string path[, boolean asnyc]])``<br/>
+  </dt>
+    <dd>
+        Generates the dot code according to the attributes values, save it to the
+        given path and then returns it.
+        
+        **Arguments**: 
+        - ``string path``: the path where to save the final svg file.
+        - ``object dotOpts={}``: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
+        - ``function cb(string error)=null``: the callback used after the result is saved in the given path.
+        - ``boolean async=false``: instead of using a callback, set async to true to save the result asynchromously.
+        
+        **Returns**: ``JSONGraph.SVG`` - the generated svg.
     </dd>
 </dl>
