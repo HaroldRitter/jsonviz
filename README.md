@@ -201,3 +201,13 @@ It contains the generated svg text and allows it to be saved.
         **Returns**: ``JSONGraph.SVG`` - this isntance to chain actions.
     </dd>
 </dl>
+
+## DOT language
+
+The jsonviz module produces DOT language and then svg graphics with the
+[viz.js](https://www.npmjs.com/package/viz.js) module. For more information,
+here are some documentations on the GraphViz web site:
+
+* [Syntax guide](https://graphviz.gitlab.io/_pages/doc/info/lang.html)
+* [Attribtue reference](https://www.graphviz.org/doc/info/attrs.html)
+* [Shape reference](https://www.graphviz.org/doc/info/shapes.html)
