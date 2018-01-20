@@ -150,24 +150,25 @@ Object.defineProperties(JSONGraph.prototype,
         return a ? tab + n + " " + a + ";\n" : "";
     }},
     
+    _array: {value:  function(a)
+    {
+        return a instanceof Array ? a : a.split(/,\s*/g);
+    }},
+    
     _styles: {value:  function(n)
     {
-        if(n instanceof Array)
+        n = this._array(n);
+        var str = "", s, i = 0;
+        for(; i < n.length; i++)
         {
-            var str = "", s, i = 0;
-            for(; i < n.length; i++)
+            s = this.styles[n];
+            if(s)
             {
-                s = this._styles(n[i]);
-                if(s)
-                {
-                    if(str) str += ", ";
-                    str += s;
-                }
+                if(str) str += ", ";
+                str += this._nAttributes(s);
             }
-            return str;
         }
-        s = this.styles[n];
-        return s ? this._nAttributes(s) : "";
+        return str;
     }},
     
     _attributes: {value:  function(attrs)
