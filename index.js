@@ -13,8 +13,8 @@ function JSONGraph(opts)
     this.strict = opts.strict ? true : false;
     this.type = opts.type || "digraph";
     this.name = opts.name || "";
-    this.graph = opts.graph || {},
-    this.node = opts.node || {},
+    this.graph = opts.graph || {};
+    this.node = opts.node || {};
     this.edge = opts.edge || {};
     this.statements = opts.statements || opts.stmts || [];
     
