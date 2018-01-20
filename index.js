@@ -42,6 +42,7 @@ JSONGraph.prototype.generate = function(dotOpts)
     try
     {
         o = Viz(d, dotOpts);
+        o = new JSONGraph.SVG(o);
     }
     catch(e)
     {
@@ -125,6 +126,21 @@ Object.defineProperties(JSONGraph.prototype,
         return str;
     }}
 });
+
+// ---------------------------------------------- //
+// ------------ CLASS JSONGraph.SVG ------------ //
+
+JSONGraph.SVG = function(txt)
+{
+    this.text = txt;
+};
+
+// ------------ Public Methods ------------ //
+
+JSONGraph.SVG.prototype.toString = function()
+{
+    return this.text;
+};
 
 // -------------- PRIVATE -------------- //
 
