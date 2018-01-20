@@ -194,6 +194,7 @@ It contains the generated svg text and allows it to be saved.
     <dd>
         Saves the svg text to the given destination path.
         
+        **Arguments**: 
         - ``string path``: the path where to save the svg text.
         - ``function cb(string error)=null``: the callback used after the svg text is saved in the given path.
         - ``boolean async=false``: instead of using a callback, set async to true to save the svg text asynchromously.
