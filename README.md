@@ -47,3 +47,50 @@ var svg = jsonviz.save("./UML.svg");
 // Prints the svg as a text (implicitely call the toString method)
 console.log("SVG:\n" + svg);
 ```
+
+#### JSONGraph instance attributes
+
+<dl>
+  <dt>``boolean strict``</dt>
+    <dd>The graph use the strict mode. As explained on the GraphViz web site,
+    this forbids the creation of multi-edges, i.e., there can be at most one
+    edge with a given tail node and head node in the directed case.</dd>
+    
+  <dt>``string type``</dt>
+    <dd>The graph use the strict mode. As explained on the GraphViz web site,
+    this forbids the creation of multi-edges, i.e., there can be at most one
+    edge with a given tail node and head node in the directed case.</dd>
+  
+  <dt>``string name``</dt>
+    <dd>Provides a name the graph.</dd>
+  
+  <dt>``object graph``</dt>
+    <dd>A key-value pair of
+        <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
+        that define the appearence of the graph.</dd>
+    
+  <dt>``object node``</dt>
+    <dd>A key-value pair of
+        <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
+        that define the generic appearence of all nodes.</dd>
+  
+  <dt>``object edge``</dt>
+    <dd>A key-value pair of
+        <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
+        that define the generic appearence of all edges.</dd>
+  
+  <dt>``(string|JSONGraph|object)[] statements``</dt>
+    <dd>
+        An array that contains all statements of the graph:
+        * It can be a simple ``string`` that contains the statement such like ``A -> B``
+        or even ``A -> B[label="depends", style="dashed"]``.
+        * Or another ``JSONGraph`` that must have the ``subgraph`` type.
+        * Or a key-value pair ``object`` that contains the statement and attributes.
+        ** ``string statement`` or ``stmt``: the statement without the attributes such like 
+        ``RGB`` or ``RGB -> Color``
+        ** ``object attributes`` or ``attrs``: the key-value pair of 
+        <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a> that define
+        the appearence of the node, if the statement is just a node identifier,
+        or the edge(s) in other cases.
+    </dd>
+</dl>
