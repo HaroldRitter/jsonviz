@@ -205,6 +205,42 @@ The constructor accepts only a required argument: ``string text``, the svg text.
     </dd>
 </dl>
 
+### JSONGraph.HTML class
+
+This class is created by the ``JSONGraph#generate`` and ``JSONGraph#save`` methods.
+It contains the generated svg text and allows it to be saved.
+
+The constructor accepts only a required argument: ``string content``.
+It must escape the &gt; (&amp;gt;) and &lt; (&amp;lt;) charcters.
+
+``JSONGraph.HTML`` can also be used as a method:
+
+```js
+// The following declaration...
+new JSONGraph.HTML("<i>A</i>");
+
+// ...is the same than the following function call
+JSONGraph.HTML("<i>A</i>");
+```
+
+#### JSONGraph.HTML attributes
+
+<dl>
+  <dt>``string content``</dt>
+    <dd>The HTML content. It must escape the &gt; (&amp;gt;) and &lt; (&amp;lt;) charcters.</dd>
+</dl>
+
+#### JSONGraph.HTML methods
+
+<dl>
+    <dt>``string toString()``</dt>
+    <dd>
+        Returns the html content.
+        
+        **Returns**: ``string`` - the html content.
+    </dd>
+</dl>
+
 ## DOT language
 
 The jsonviz module produces DOT language and then svg graphics with the
