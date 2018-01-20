@@ -2,7 +2,8 @@
 
 // ------------ Requirements ------------ //
 
-var Viz = require("viz.js");
+var Viz = require("viz.js"),
+    fs = require("fs");
 
 // ------------ CLASS JSONGraph ------------ //
 
@@ -140,6 +141,19 @@ JSONGraph.SVG = function(txt)
 JSONGraph.SVG.prototype.toString = function()
 {
     return this.text;
+};
+
+JSONGraph.SVG.prototype.save = function(path, cb)
+{
+    if(cb === true)
+    {
+        fs.writeFileSync(path, this.text);
+    }
+    else
+    {
+        fs.writeFile(path, this.text, cb);
+    }
+    return this;
 };
 
 // -------------- PRIVATE -------------- //
