@@ -184,6 +184,29 @@ JSONGraph.SVG.prototype.save = function(path, cb)
     return this;
 };
 
+// ---------------------------------------------- //
+// -------------- CLASS JSONGraph.HTML -------------- //
+
+Object.defineProperty(JSONGraph, "HTML",
+    {
+        value: function(content)
+        {
+            if(this instanceof JSONGraph.HTML)
+            {
+                this.content = content || "";
+            }
+            else
+            {
+                return new JSONGraph.HTML(content);
+            }
+        }
+    });
+
+JSONGraph.HTML.prototype.toString = function()
+{
+    return this.content;
+};
+
 // -------------- PRIVATE -------------- //
 
 // --> Escape
