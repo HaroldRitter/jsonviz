@@ -21,6 +21,23 @@ function JSONGraph(opts)
     this._computedDot = null;
 }
 
+// ------------ JSONGraph Public Static Methods ------------ //
+
+JSONGraph.generate = function(opts, dotOpts, path, cb)
+{
+    if(typeof(dotOpts) == "string")
+    {
+        cb = path;
+        path = dotOpts;
+        dotOpts = undefined;
+    }
+    if(path)
+    {
+        return new JSONGraph(opts).save(path, dotOpts, cb);
+    }
+    return new JSONGraph(opts).generate(dotOpts);
+};
+
 // ------------ JSONGraph Public Methods ------------ //
 
 JSONGraph.prototype.reset = function()
