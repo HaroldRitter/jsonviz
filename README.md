@@ -169,6 +169,8 @@ console.log("SVG:\n" + svg);
 This class is created by the ``JSONGraph#generate`` and ``JSONGraph#save`` methods.
 It contains the generated svg text and allows it to be saved.
 
+The constructor accepts only a required argument: ``string text``, the svg text.
+
 #### JSONGraph.SVG instance attributes
 
 <dl>
