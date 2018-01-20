@@ -171,14 +171,14 @@ It contains the generated svg text and allows it to be saved.
 
 The constructor accepts only a required argument: ``string text``, the svg text.
 
-#### JSONGraph.SVG instance attributes
+#### JSONGraph.SVG attributes
 
 <dl>
   <dt>``string text``</dt>
     <dd>The svg text.</dd>
 </dl>
 
-#### JSONGraph.SVG instance methods
+#### JSONGraph.SVG methods
 
 <dl>
     <dt>``string toString()``</dt>
