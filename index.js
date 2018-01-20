@@ -233,6 +233,10 @@ function __escapeString(s, single)
 
 function __ID(s)
 {
+    if(s instanceof JSONGraph.HTML)
+    {
+        return "<" + s + ">";
+    }
     return "\"" + __escapeHTML(__escapeString(s)) + "\"";
 }
 
