@@ -163,3 +163,41 @@ console.log("SVG:\n" + svg);
         **Returns**: ``JSONGraph.SVG`` - the generated svg.
     </dd>
 </dl>
+
+### JSONGraph.SVG class
+
+This class is created by the ``JSONGraph#generate`` and ``JSONGraph#save`` methods.
+It contains the generated svg text and allows it to be saved.
+
+#### JSONGraph.SVG instance attributes
+
+<dl>
+  <dt>``string text``</dt>
+    <dd>The svg text.</dd>
+</dl>
+
+#### JSONGraph.SVG instance methods
+
+<dl>
+    <dt>``string toString()``</dt>
+    <dd>
+        Returns the svg text. So a JSONGraph.SVG instance will return its text
+        when it is used as a string.
+        
+        **Returns**: ``string`` - the svg text.
+    </dd>
+    
+  <dt>
+    ``string save(string path[, function cb(string error)])``<br/>
+    ``string save(string path[, boolean asnyc])``<br/>
+  </dt>
+    <dd>
+        Saves the svg text to the given destination path.
+        
+        - ``string path``: the path where to save the svg text.
+        - ``function cb(string error)=null``: the callback used after the svg text is saved in the given path.
+        - ``boolean async=false``: instead of using a callback, set async to true to save the svg text asynchromously.
+        
+        **Returns**: ``JSONGraph.SVG`` - this isntance to chain actions.
+    </dd>
+</dl>
