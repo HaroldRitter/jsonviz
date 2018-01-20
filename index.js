@@ -155,7 +155,7 @@ Object.defineProperties(JSONGraph.prototype,
         return a instanceof Array ? a : a.split(/,\s*/g);
     }},
     
-    _styles: {value:  function(n)
+    _styles: {value:  function(n, lb)
     {
         n = this._array(n);
         var str = "", s, i = 0;
@@ -165,37 +165,57 @@ Object.defineProperties(JSONGraph.prototype,
             if(s)
             {
                 if(str) str += ", ";
-                str += this._nAttributes(s);
+                str += this._nAttributes(s, lb);
             }
         }
         return str;
     }},
     
-    _attributes: {value:  function(attrs)
+    _textStyle: {value:  function(n, lb)
+    {
+        var a = n = this._array(n), i = 0, st, s = "", e = "";
+        for(; i < a.length; i++)
+        {
+            st = __textStyles[a[i]];
+            if(st)
+            {
+                s += "<" + st + ">";
+                e = "</" + st + ">" + e;
+            }
+        }
+        if(lb[0] == '"')
+        {
+            lb = lb.replace(/^\"/, "").replace(/\"\s*$/, "");
+        }
+        return s ? "label=<" + s + __escapeHTML(lb) + e + ">" : "";
+    }},
+    
+    _attributes: {value:  function(attrs, lb)
     {
         var str = "";
         
         // Attributes is a string ref
         if(typeof(attrs) == "string" || attrs instanceof Array)
         {
-            str = this._styles(attrs);
+            str = this._styles(attrs, lb);
         }
         else
         {
-            str = this._nAttributes(attrs);
+            str = this._nAttributes(attrs, lb);
         }
         
         return str ? " [" + str + "]" : "";
     }},
     
-    _nAttributes: {value:  function(attrs)
+    _nAttributes: {value:  function(attrs, lb)
     {
         var n, str = "";
         
         for(n in attrs)
         {
             if(str) str += ", ";
-            str += n == "ref" ? this._styles(attrs[n]) :
+            str += n == "ref" ? this._styles(attrs[n], lb) :
+                    n == "textstyle" ? this._textStyle(attrs[n], lb) :
                         __ID(n) + "=" + __ID(attrs[n]);
         }
         
@@ -255,6 +275,9 @@ JSONGraph.HTML.prototype.toString = function()
 };
 
 // -------------- PRIVATE -------------- //
+
+var __textStyles = {italic: "i", bold: "b", underline: "u", stoke: "s",
+                    i: "i", b: "b", u: "u", s: "s"};
 
 // --> Escape
 
