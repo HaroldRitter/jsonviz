@@ -161,7 +161,17 @@ Generates the final svg graph text according to the attributes values.
 * <code>object dotOpts={}</code>: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
 
 **Returns**: <code>JSONGraph.SVG</code> - the generated svg.
-    </dd>   
+    </dd>
+    
+    <dt style="color:#2d3e58"><code>JSONGraph.SVG svg([object dotOpts])</code></dt>
+    <dd>
+An alias of the <code>generate</code> method.
+
+**Arguments**:
+* <code>object dotOpts={}</code>: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
+
+**Returns**: <code>JSONGraph.SVG</code> - the generated svg.
+    </dd>
     
   <dt style="color:#2d3e58">
   <code>JSONGraph.SVG save(string path[, object dotOpts[, function cb(string error)]])</code><br/>

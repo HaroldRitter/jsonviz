@@ -71,6 +71,8 @@ JSONGraph.prototype.generate = function(dotOpts)
     return o;
 };
 
+JSONGraph.prototype.svg = JSONGraph.prototype.generate;
+
 JSONGraph.prototype.save = function(path, dotOpts, cb)
 {
     if(dotOpts && typeof(dotOpts) != "object")
