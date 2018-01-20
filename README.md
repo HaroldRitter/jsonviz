@@ -70,19 +70,22 @@ console.log("SVG:\n" + svg);
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
         that define the appearence of the graph. It can also be one or several
-        references to a style in ``styles``.</dd>
+        references to a style in ``styles``. Note that if ``graph`` is a string,
+        it can contain several styles separated with comas.</dd>
     
   <dt>``object|string|string[] node``</dt>
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
         that define the generic appearence of all nodes. It can also be one or several
-        references to a style in ``styles``.</dd>
+        references to a style in ``styles``. Note that if ``node`` is a string,
+        it can contain several styles separated with comas.</dd>
   
   <dt>``object|string|string[] edge``</dt>
     <dd>A key-value pair of
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a>
         that define the generic appearence of all edges. It can also be one or several
-        references to a style in ``styles``.</dd>
+        references to a style in ``styles``. Note that if ``edge`` is a string,
+        it can contain several styles separated with comas.</dd>
   
   <dt>``object styles``</dt>
     <dd>
@@ -107,7 +110,8 @@ console.log("SVG:\n" + svg);
         <a href="https://www.graphviz.org/doc/info/attrs.html">attributes</a> that define
         the appearence of the node, if the statement is just a node identifier,
         or the edge(s) in other cases. It can also be one or several
-        references to a style in ``styles``.
+        references to a style in ``styles``. Note that if ``attributes`` is a string,
+        it can contain several styles separated with comas.
     </dd>
 </dl>
 
