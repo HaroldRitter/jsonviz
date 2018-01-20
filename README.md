@@ -267,9 +267,18 @@ JSONGraph.HTML("<i>A</i>");
 In addition of the [DOT language attributes](https://www.graphviz.org/doc/info/attrs.html),
 *jsonviz* provides its own attributes :
 
-* ``string|string[] ref``: the name(s) of a style(s) stored inside the ``JSONGraph#styles``
+* ``string|string[] ref``: the name(s) of a(several) style(s) stored inside the ``JSONGraph#styles``
 attribute. The attribute of the style(s) will be copied in order before the attribute
-list that contains the reference.
+list that contains the reference. If ``ref`` is a string, several styles can be used by
+using a coma separators, so the style names cannot contain any coma.
+* ``string|string[] textstyle``: the name(s) of a(several) text style(s). It will replace
+the ``label`` attribute so it cannot be used at the same type than a ``label`` attribute.
+If ``textstyle`` is a string, several styles can be used by using a coma separators. The accepted
+styles are the following ones:
+** ``bold`` or ``b``
+** ``italic`` or ``i``
+** ``underline`` or ``u``
+** ``stroke`` or ``s``
 
 ## DOT language
 
