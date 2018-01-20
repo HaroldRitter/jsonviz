@@ -1,5 +1,9 @@
 "use strict";
 
+// ------------ Requirements ------------ //
+
+var Viz = require("viz.js");
+
 // ------------ CLASS JSONGraph ------------ //
 
 function JSONGraph(opts)
@@ -30,6 +34,20 @@ JSONGraph.prototype.dot = function()
         this._computedDot = this._dot("");
     }
     return this._computedDot;
+};
+
+JSONGraph.prototype.generate = function(dotOpts)
+{
+    var d = this.dot(), o;
+    try
+    {
+        o = Viz(d, dotOpts);
+    }
+    catch(e)
+    {
+        throw new Error("Error while generating the dot graph.\nGraph:\n" + d + "\n\n" + e);
+    }
+    return o;
 };
 
 // ------------ JSONGraph Protected Methods ------------ //
