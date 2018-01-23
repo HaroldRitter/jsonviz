@@ -150,6 +150,13 @@ Object.defineProperties(JSONGraph.prototype,
     
     _statement: {value:  function(stmt, tab)
     {
+        // The statement is empty -> returns an empty string
+        if(!stmt)
+        {
+            return "";
+        }
+        
+        // The statement is a none empty string -> returns iut directly
         if(typeof(stmt) == "string")
         {
             return tab + stmt + ";\n";
