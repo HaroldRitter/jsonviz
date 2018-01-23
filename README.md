@@ -227,9 +227,12 @@ given path and then returns it.
      
 #### JSONGraph#clone
 
-``JSONGraph clone()``
+``JSONGraph clone([name])``
   
 Clones the ``JSONGraph`` instance by deeply copying all the attributes.
+
+> *Arguments*: 
+* ``string name=null``: a new optional name for the cloned graph
 
 > *Returns*: ``JSONGraph`` - the cloned instance.
   
