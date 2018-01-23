@@ -24,6 +24,11 @@ function JSONGraph(opts)
 
 // ------------ JSONGraph Public Static Methods ------------ //
 
+JSONGraph.import = function(json)
+{
+    return new JSONGraph(__getJSON(json));
+};
+
 JSONGraph.generate = function(opts, dotOpts, path, cb)
 {
     if(typeof(dotOpts) == "string")
@@ -338,6 +343,19 @@ function __cloneO(o)
 function __clone(v)
 {
     return v && typeof(v) == "object" ? (v instanceof Array ? __cloneA(v) : __cloneO(v)) : v;
+}
+
+// --> JSON
+
+function __getJSON(json)
+{
+    // JSON string
+    if(/^\s*\{/.test(json))
+    {
+        return JSON.parse(json);
+    }
+    // Path
+    return JSON.parse(fs.readFIleSync(json, "utf8"));
 }
 
 
