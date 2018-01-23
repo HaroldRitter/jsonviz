@@ -242,7 +242,7 @@ JSONGraph.SVG.prototype.toString = function()
 
 JSONGraph.SVG.prototype.save = function(path, cb)
 {
-    if(cb === true)
+    if(cb === true || cb === undefined)
     {
         fs.writeFileSync(path, this.text);
     }
