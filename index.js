@@ -106,6 +106,20 @@ JSONGraph.prototype.clone = function(name)
     });
 };
 
+JSONGraph.prototype.toJSON = function(replace, space)
+{
+    return JSON.stringify({
+        strict: this.strict,
+        type: this.type,
+        name: this.name,
+        graph: this.graph,
+        node: this.node,
+        edge: this.edge,
+        styles: this.styles,
+        statements: this.statements
+    }, replace, space);
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
