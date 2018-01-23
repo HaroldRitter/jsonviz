@@ -31,6 +31,10 @@ JSONGraph.import = function(json)
 
 JSONGraph.generate = function(opts, dotOpts, path, cb)
 {
+    if(typeof(opts) == "string")
+    {
+        opts = __getJSON(opts);
+    }
     if(typeof(dotOpts) == "string")
     {
         cb = path;
