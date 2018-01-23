@@ -48,6 +48,21 @@ JSONGraph.generate = function(opts, dotOpts, path, cb)
     return new JSONGraph(opts).generate(dotOpts);
 };
 
+JSONGraph.extends = function(modName)
+{
+    // Requires
+    var path = require.resolve(modName.indexOf("/") > -1 ? modName : "./modules/" + modName + ".js"),
+        extension = require.cache[path];
+    
+    if(!extension)
+    {
+         extension = require(path);
+         extension(JSONGraph);
+    }
+    
+    return JSONGraph;
+};
+
 // ------------ JSONGraph Public Methods ------------ //
 
 JSONGraph.prototype.reset = function()
@@ -309,8 +324,17 @@ JSONGraph.HTML.prototype.toString = function()
 // -------------- PRIVATE -------------- //
 
 var __textStyles = {italic: "i", bold: "b", underline: "u", stoke: "s",
-                    i: "i", b: "b", u: "u", s: "s"};
-
+                    i: "i", b: "b", u: "u", s: "s"},
+    __attrs = [ "strict", 
+                "type", 
+                "name", 
+                "graph", 
+                "node", 
+                "edge", 
+                "styles", 
+                "statements", 
+                "_computedDot"];
+    
 // --> Escape
 
 function __escapeHTML(s)
@@ -382,7 +406,6 @@ function __getJSON(json)
     // Path
     return JSON.parse(fs.readFIleSync(json, "utf8"));
 }
-
 
 // -------------- EXPORTS THE MODULE -------------- //
 
