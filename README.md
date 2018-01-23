@@ -210,9 +210,9 @@ An alias of the ``generate`` method.
 #### JSONGraph#save
 
 ``JSONGraph save(string path[, object dotOpts[, function cb(string error)]])``   
-``JSONGraph save(string path[, object dotOpts[, boolean asnyc]])``   
+``JSONGraph save(string path[, object dotOpts[, boolean sync]])``   
 ``JSONGraph save(string path[, function cb(string error)]])``   
-``JSONGraph save(string path[, boolean asnyc]])``
+``JSONGraph save(string path[, boolean sync]])``
     
 Generates the dot code according to the attributes values, save it to the
 given path and then returns it.
@@ -221,7 +221,7 @@ given path and then returns it.
 * ``string path``: the path where to save the final svg file.
 * ``object dotOpts={}``: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
 * ``function cb(string error)=null``: the callback used after the result is saved in the given path.
-* ``boolean async=false``: instead of using a callback, set async to true to save the result asynchromously.
+* ``boolean sync=false``: instead of using a callback, set sync to true to save the result synchromously.
 
 > *Returns*: ``JSONGraph.SVG`` - the generated svg.
      
