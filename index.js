@@ -69,6 +69,8 @@ JSONGraph.extends = function(modName)
 
 // ------------ JSONGraph Public Methods ------------ //
 
+// ---> Generates
+
 JSONGraph.prototype.reset = function()
 {
     this._computedDot = null;
@@ -124,6 +126,8 @@ JSONGraph.prototype.clone = function(name)
         statements: util.clone(this.statements)
     });
 };
+
+// ---> Converts
 
 JSONGraph.prototype.toJSON = function(replace, space)
 {
