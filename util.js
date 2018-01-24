@@ -60,6 +60,10 @@ exports = module.exports = function(JSONGraph)
         
         ID: function(s)
         {
+            if(s instanceof JSONGraph.Raw)
+            {
+                return "\"" + this.escapeString(s) + "\"";
+            }
             if(s instanceof JSONGraph.HTML)
             {
                 return "<" + s + ">";

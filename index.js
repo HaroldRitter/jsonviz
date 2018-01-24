@@ -338,6 +338,29 @@ JSONGraph.HTML.prototype.toString = function()
     return this.content;
 };
 
+// ---------------------------------------------- //
+// -------------- CLASS JSONGraph.Raw -------------- //
+
+Object.defineProperty(JSONGraph, "Raw",
+    {
+        value: function(content)
+        {
+            if(this instanceof JSONGraph.Raw)
+            {
+                this.content = content || "";
+            }
+            else
+            {
+                return new JSONGraph.Raw(content);
+            }
+        }
+    });
+
+JSONGraph.Raw.prototype.toString = function()
+{
+    return this.content;
+};
+
 // -------------- PRIVATE -------------- //
 
 var __textStyles = {italic: "i", bold: "b", underline: "u", stoke: "s",
