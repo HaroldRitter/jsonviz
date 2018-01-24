@@ -11,14 +11,14 @@ var Viz = require("viz.js"),
 
 function JSONGraph(opts)
 {
-    this.strict = opts.strict ? true : false;
-    this.type = opts.type || "digraph";
-    this.name = opts.name || "";
-    this.graph = opts.graph || {};
-    this.node = opts.node || {};
-    this.edge = opts.edge || {};
-    this.styles = opts.styles || {};
-    this.statements = opts.statements || opts.stmts || [];
+    this.strict = opts && opts.strict ? true : false;
+    this.type = opts && opts.type || "digraph";
+    this.name = opts && opts.name || "";
+    this.graph = opts && opts.graph || {};
+    this.node = opts && opts.node || {};
+    this.edge = opts && opts.edge || {};
+    this.styles = opts && opts.styles || {};
+    this.statements = opts && (opts.statements || opts.stmts) || [];
     
     this._computedDot = null;
 }
