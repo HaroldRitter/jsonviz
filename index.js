@@ -160,6 +160,16 @@ JSONGraph.prototype.linkNodes = function(nodes, attrs)
     return n;
 };
 
+JSONGraph.prototype.addStruct = function(name, nodes, attrs)
+{
+    var n = this.statements.length;
+    if(!attrs) attrs = {};
+    attrs.label = new JSONGraph.Raw(__struct(nodes));
+    attrs.shape = attrs.shape ? "record," + attrs.shape : "record";
+    this.statements.push({stmt: __nodeName(name), attrs: attrs});
+    return n;
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
@@ -411,6 +421,25 @@ function __nodeDecl(n)
 function __nodeName(n)
 {
     return "\"" + util.escapeString(n) + "\"";
+}
+
+function __structElt(e)
+{
+    if(e instanceof Array)
+    {
+        return "{" + __struct(e) + "}";
+    }
+    if(/^\s*</.test(e))
+    {
+        return e;
+    }
+    e = util.escapeHTML(e);
+    return "<" + e + "> " + e;
+}
+
+function __struct(a)
+{
+    return a.map(__structElt).join(" | ");
 }
 
 // -------------- EXPORTS THE MODULE -------------- //
