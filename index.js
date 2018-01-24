@@ -3,7 +3,8 @@
 // ------------ Requirements ------------ //
 
 var Viz = require("viz.js"),
-    fs = require("fs");
+    fs = require("fs"),
+    util = require("./util.js");
 
 // ------------------------------------------- //
 // ------------ CLASS JSONGraph ------------ //
@@ -21,6 +22,9 @@ function JSONGraph(opts)
     
     this._computedDot = null;
 }
+
+// --> Sets util
+util = JSONGraph.util = util(JSONGraph);
 
 // ------------ JSONGraph Public Static Methods ------------ //
 
@@ -113,11 +117,11 @@ JSONGraph.prototype.clone = function(name)
         strict: this.strict,
         type: this.type,
         name: name || this.name,
-        graph: __clone(this.graph),
-        node: __clone(this.node),
-        edge: __clone(this.edge),
-        styles: __clone(this.styles),
-        statements: __clone(this.statements)
+        graph: util.clone(this.graph),
+        node: util.clone(this.node),
+        edge: util.clone(this.edge),
+        styles: util.clone(this.styles),
+        statements: util.clone(this.statements)
     });
 };
 
@@ -141,7 +145,7 @@ Object.defineProperties(JSONGraph.prototype,
 {
     _dot: {value:  function(tab)
     {
-        return tab + (this.strict ? "strict " : "") + this.type + (this.name ? " " + __ID(this.name) : "") +
+        return tab + (this.strict ? "strict " : "") + this.type + (this.name ? " " + util.ID(this.name) : "") +
                 tab +"\n{\n" +
                     this._statements(tab + "\t") +
                 tab + "}";
@@ -234,7 +238,7 @@ Object.defineProperties(JSONGraph.prototype,
         {
             lb = lb.replace(/^\"/, "").replace(/\"\s*$/, "");
         }
-        return s ? "label=<" + s + __escapeHTML(lb) + e + ">" : "";
+        return s ? "label=<" + s + util.escapeHTML(lb) + e + ">" : "";
     }},
     
     _attributes: {value:  function(attrs, lb)
@@ -263,7 +267,7 @@ Object.defineProperties(JSONGraph.prototype,
             if(str) str += ", ";
             str += n == "ref" ? this._styles(attrs[n], lb) :
                     n == "textstyle" ? this._textStyle(attrs[n], lb) :
-                        __ID(n) + "=" + __ID(attrs[n]);
+                        util.ID(n) + "=" + util.ID(attrs[n]);
         }
         
         return str;
@@ -324,76 +328,8 @@ JSONGraph.HTML.prototype.toString = function()
 // -------------- PRIVATE -------------- //
 
 var __textStyles = {italic: "i", bold: "b", underline: "u", stoke: "s",
-                    i: "i", b: "b", u: "u", s: "s"},
-    __attrs = [ "strict", 
-                "type", 
-                "name", 
-                "graph", 
-                "node", 
-                "edge", 
-                "styles", 
-                "statements", 
-                "_computedDot"];
+                    i: "i", b: "b", u: "u", s: "s"};
     
-// --> Escape
-
-function __escapeHTML(s)
-{
-    return s.toString() 
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&apos;");
-}
-
-
-function __escapeString(s, single)
-{
-    return s.toString()
-                .replace(/\\/g, "\\\\")
-                .replace(/\r/g, "\\r")
-                .replace(/\n/g, "\\n")
-                .replace(single ? /'/g : /"/g, single ? "\\'" : '\\"');
-}
-
-function __ID(s)
-{
-    if(s instanceof JSONGraph.HTML)
-    {
-        return "<" + s + ">";
-    }
-    return "\"" + __escapeHTML(__escapeString(s)) + "\"";
-}
-
-
-// --> Clone
-
-function __cloneA(o)
-{
-    var c = [], i = 0;
-    for(; i < o.length; i++)
-    {
-        c[i] = __clone(o[i]);
-    }
-    return c;
-}
-
-function __cloneO(o)
-{
-    var c = {}, n;
-    for(n in o)
-    {
-        c[n] = __clone(o[n]);
-    }
-    return c;
-}
-
-function __clone(v)
-{
-    return v && typeof(v) == "object" ? (v instanceof Array ? __cloneA(v) : __cloneO(v)) : v;
-}
-
 // --> JSON
 
 function __getJSON(json)
