@@ -209,16 +209,21 @@ Object.defineProperties(JSONGraph.prototype,
     _styles: {value:  function(n, lb)
     {
         n = this._array(n);
-        var str = "", s, i = 0;
+        var str = "", s, i = 0, attrs;
         for(; i < n.length; i++)
         {
-            s = this.styles[n];
+            s = this.styles[n[i]];
             if(s)
             {
-                if(str) str += ", ";
-                str += this._nAttributes(s, lb);
+                attrs = this._nAttributes(s, lb);
+                if(attrs)
+                {
+                    if(str) str += ", ";
+                    str += attrs;
+                }
             }
         }
+        
         return str;
     }},
     
