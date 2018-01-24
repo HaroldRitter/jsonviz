@@ -177,7 +177,7 @@ Object.defineProperties(JSONGraph.prototype,
     _dot: {value:  function(tab)
     {
         return tab + (this.strict ? "strict " : "") + this.type + (this.name ? " " + util.ID(this.name) : "") +
-                tab +"\n{\n" +
+                "\n" + tab + "{\n" +
                     this._statements(tab + "\t") +
                 tab + "}";
     }},
