@@ -227,6 +227,10 @@ Object.defineProperties(JSONGraph.prototype,
         {
             return stmt._dot(tab) + "\n";
         }
+        if(stmt && stmt instanceof JSONGraph.Raw)
+        {
+            return tab + stmt.content + ";\n";
+        }
         
         var s = stmt.statement || stmt.stmt,
             a = stmt.attributes || stmt.attrs;
