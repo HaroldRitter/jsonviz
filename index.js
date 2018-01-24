@@ -152,6 +152,14 @@ JSONGraph.prototype.addNode = function(node, attrs)
     return n;
 };
 
+JSONGraph.prototype.addEdge = 
+JSONGraph.prototype.linkNodes = function(nodes, attrs)
+{
+    var n = this.statements.length;
+    this.statements.push({stmt: nodes.map(__nodeDecl).join("->"), attrs: attrs});
+    return n;
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
@@ -389,6 +397,16 @@ function __getJSON(json)
 }
 
 // --> Node
+
+function __nodeDecl(n)
+{
+    if(typeof(n) == "object")
+    {
+        var s = Object.keys(n);
+        return "\"" + util.escapeString(s) + "\":\"" + util.escapeString(n[s]) + "\"";
+    }
+    return "\"" + util.escapeString(n) + "\"";
+}
 
 function __nodeName(n)
 {
