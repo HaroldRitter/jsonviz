@@ -269,10 +269,14 @@ Object.defineProperties(JSONGraph.prototype,
         
         for(n in attrs)
         {
-            if(str) str += ", ";
-            str += n == "ref" ? this._styles(attrs[n], lb) :
+            n = n == "ref" ? this._styles(attrs[n], lb) :
                     n == "textstyle" ? this._textStyle(attrs[n], lb) :
                         util.ID(n) + "=" + util.ID(attrs[n]);
+            if(n)
+            {
+                if(str) str += ", ";
+                str += n;
+            }
         }
         
         return str;
