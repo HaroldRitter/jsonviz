@@ -143,6 +143,15 @@ JSONGraph.prototype.toJSON = function(replace, space)
     }, replace, space);
 };
 
+// ---> Statements
+
+JSONGraph.prototype.addNode = function(node, attrs)
+{
+    var n = this.statements.length;
+    this.statements.push({stmt: __nodeName(node), attrs: attrs});
+    return n;
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
@@ -377,6 +386,13 @@ function __getJSON(json)
     }
     // Path
     return JSON.parse(fs.readFIleSync(json, "utf8"));
+}
+
+// --> Node
+
+function __nodeName(n)
+{
+    return "\"" + util.escapeString(n) + "\"";
 }
 
 // -------------- EXPORTS THE MODULE -------------- //
