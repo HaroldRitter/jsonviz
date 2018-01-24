@@ -170,6 +170,18 @@ JSONGraph.prototype.addStruct = function(name, nodes, attrs)
     return n;
 };
 
+JSONGraph.prototype.addSubgraph = function(sub)
+{
+    var n = this.statements.length;
+    if(!(sub instanceof JSONGraph))
+    {
+        sub = new JSONGraph(sub);
+    }
+    sub.type = "subgraph";
+    this.statements.push(sub);
+    return n;
+};
+
 // ------------ JSONGraph Protected Methods ------------ //
 
 Object.defineProperties(JSONGraph.prototype,
