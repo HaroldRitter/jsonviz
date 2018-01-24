@@ -211,13 +211,13 @@ Object.defineProperties(JSONGraph.prototype,
         {
             return tab + stmt + ";\n";
         }
+        if(stmt && stmt instanceof JSONGraph)
+        {
+            return stmt._dot(tab) + "\n";
+        }
         
         var s = stmt.statement || stmt.stmt,
             a = stmt.attributes || stmt.attrs;
-        if(s && s instanceof JSONGraph)
-        {
-            return s._dot(tab) + "\n";
-        }
         
         var str = s || "";
         if(a) str += this._attributes(a, s);
