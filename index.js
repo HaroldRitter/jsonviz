@@ -145,6 +145,13 @@ JSONGraph.prototype.toJSON = function(replace, space)
 
 // ---> Statements
 
+JSONGraph.prototype.addRaw = function(stmt)
+{
+    var n = this.statements.length;
+    this.statements.push(new JSONGraph.Raw(stmt));
+    return n;
+};
+
 JSONGraph.prototype.addNode = function(node, attrs)
 {
     var n = this.statements.length;
