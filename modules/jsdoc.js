@@ -19,7 +19,8 @@ exports = module.exports = function(JSONGraph)
         
         addSubClasses: function(members)
         {
-            var i = 0, j, c, ps, classes = members.classes, byName = members.classByNames;
+            var i = 0, j, c, ps, classes = members.classes,
+                byName = members.classByNames || (members.classByNames = this.getClassesByName(members.classes));
             
             for(; i < classes.length; i++)
             {
