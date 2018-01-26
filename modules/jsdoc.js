@@ -90,14 +90,14 @@ exports = module.exports = function(JSONGraph)
         }
         
         // > Builds the JSON statements
-        this._addUMLClass(oClass, true);
+        this._addUMLClass(oClass, true, opts);
         if(opts.parents || opts.parents === undefined)
         {
-            this._getUMLFamily(oClass, classes, "augments");
+            this._getUMLFamily(oClass, classes, "augments", false, opts);
         }
         if(opts.children || opts.children === undefined)
         {
-            this._getUMLFamily(oClass, classes, "subClasses", true);
+            this._getUMLFamily(oClass, classes, "subClasses", true, opts);
         }
         
         return this;
@@ -107,7 +107,7 @@ exports = module.exports = function(JSONGraph)
     
     Object.defineProperties(JSONGraph.prototype,
     {
-        _addUMLClass: {value: function(oClass, select)
+        _addUMLClass: {value: function(oClass, select, opts)
         {
             if(!__added[oClass.longname])
             {
@@ -125,13 +125,16 @@ exports = module.exports = function(JSONGraph)
                 __added[oClass.longname] = true;
                 oClass.fullname = a.tooltip = (oClass.virtual ? "abstract " : (oClass.final ? "final " : "")) +
                                         "class " + oClass.longname;
-                a.URL = oClass.longname + ".html";
+                if(opts.links)
+                {
+                    a.URL = oClass.longname + ".html";
+                }
                 this.addNode(oClass.longname, a);
             }
             return null;
         }},
         
-        _getUMLFamily: {value : function(cl, classes, prop, desc)
+        _getUMLFamily: {value : function(cl, classes, prop, desc, opts)
         {
             var i = 0, c, a, tt, members = cl[prop];
             
@@ -141,7 +144,7 @@ exports = module.exports = function(JSONGraph)
                 {
                     c = classes[members[i]];
                     
-                    this._addUMLClass(c);
+                    this._addUMLClass(c, false, opts);
                     
                     tt = cl.longname + (c.virtual ? " implements " : " extends ") + c.longname;
                     a = {edgetooltip: tt, ref: ["edge_extends", "extends"]};
@@ -151,7 +154,7 @@ exports = module.exports = function(JSONGraph)
                     }
                     
                     this.addEdge(desc ? [c.longname, cl.longname] : [cl.longname, c.longname], a);
-                    this._getUMLFamily(c, classes, prop, desc);
+                    this._getUMLFamily(c, classes, prop, desc, opts);
                 }
             }
         }}
