@@ -6,35 +6,43 @@ exports = module.exports = function(JSONGraph)
     {
         getClassesByName: function(classes)
         {
-            var i = 0, c, map = {};
-            
-            for(; i < classes.length; i++)
+            if(!classes.byNames)
             {
-                c = classes[i];
-                map[c.longname] = c;
+                var i = 0, c, map = {};
+                
+                for(; i < classes.length; i++)
+                {
+                    c = classes[i];
+                    map[c.longname] = c;
+                }
+                
+                classes.byNames = map;
             }
-        
-            return map;
+            
+            return classes.byNames;
         },
         
-        addSubClasses: function(members)
+        addSubClasses: function(classes)
         {
-            var i = 0, j, c, ps, classes = members.classes,
-                byName = members.classByNames || (members.classByNames = this.getClassesByName(members.classes));
-            
-            for(; i < classes.length; i++)
+            if(classes.length && !classes[0].subClasses)
             {
-                classes[i].subClasses = [];
-            }
-            for(i = 0; i < classes.length; i++)
-            {
-                c = classes[i];
-                ps = c.augments;
-                if(ps)
+                var i = 0, j, c, ps,
+                    byName = this.getClassesByName(classes);
+                
+                for(; i < classes.length; i++)
                 {
-                    for(j = 0; j < ps.length; j++)
+                    classes[i].subClasses = [];
+                }
+                for(i = 0; i < classes.length; i++)
+                {
+                    c = classes[i];
+                    ps = c.augments;
+                    if(ps)
                     {
-                        byName[ps[j]].subClasses.push(c.longname);
+                        for(j = 0; j < ps.length; j++)
+                        {
+                            byName[ps[j]].subClasses.push(c.longname);
+                        }
                     }
                 }
             }
@@ -47,7 +55,8 @@ exports = module.exports = function(JSONGraph)
 
     JSONGraph.prototype.fromJSDoc = function(members, opts)
     {
-        var oClass, s = this.styles, classes = members.classByNames;
+        var oClass, s = this.styles, classes = members.classes,
+            byName = JSONGraph.JSDoc.getClassesByName(classes);
         
         __added = {};
             
@@ -76,12 +85,8 @@ exports = module.exports = function(JSONGraph)
         }
         
         // > Gets the class by names and all sub-classes
-        if(!classes)
-        {
-            classes = members.classByNames = JSONGraph.JSDoc.getClassesByName(members.classes);
-            JSONGraph.JSDoc.addSubClasses(members);
-        }
-        oClass = classes[opts.className];
+        JSONGraph.JSDoc.addSubClasses(classes);
+        oClass = byName[opts.className];
         
         // > Resets
         this.reset();
@@ -94,11 +99,11 @@ exports = module.exports = function(JSONGraph)
         this._addUMLClass(oClass, true, opts);
         if(opts.parents || opts.parents === undefined)
         {
-            this._getUMLFamily(oClass, classes, "augments", false, opts);
+            this._getUMLFamily(oClass, byName, "augments", false, opts);
         }
         if(opts.children || opts.children === undefined)
         {
-            this._getUMLFamily(oClass, classes, "subClasses", true, opts);
+            this._getUMLFamily(oClass, byName, "subClasses", true, opts);
         }
         
         return this;
