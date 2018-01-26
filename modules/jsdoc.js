@@ -53,9 +53,9 @@ exports = module.exports = function(JSONGraph)
 
 // -------------------- Public Methods -------------------- //
 
-    JSONGraph.prototype.fromJSDoc = function(members, opts)
+    JSONGraph.prototype.fromJSDoc = function(classes, opts)
     {
-        var oClass, s = this.styles, classes = members.classes,
+        var oClass, s = this.styles,
             byName = JSONGraph.JSDoc.getClassesByName(classes);
         
         __added = {};
