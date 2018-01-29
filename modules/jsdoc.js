@@ -96,7 +96,7 @@ exports = module.exports = function(JSONGraph)
         }
         
         // > Builds the JSON statements
-        this._addUMLClass(oClass, true, opts);
+        this._addUMLClass(oClass, opts.select || opts.select === undefined, opts);
         if(opts.parents || opts.parents === undefined)
         {
             this._getUMLFamily(oClass, byName, "augments", false, opts);
