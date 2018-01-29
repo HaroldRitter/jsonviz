@@ -18,7 +18,7 @@ script before it is created.
 1. [DOT language](#DOTLanguage)
 1. [Version changes](#versionChanges)
 
-## <a href="JSONGraphClass"></a>JSONGraph class
+## <a name="JSONGraphClass"></a>JSONGraph class
 
 The jsonviz module exports the JSONGraph class constructor.
 This class allows the creation of a GraphViz graph with the JavaScript object syntax.
@@ -136,7 +136,7 @@ of the attribute list in a statement or for inside the global styles
 (``graph``, ``node``, ``edge``).
 
 
-#### <a href="statements"><a>``(string|JSONGraph|object)[] statements``
+#### <a name="statements"><a>``(string|JSONGraph|object)[] statements``
 
 An array that contains all statements of the graph:
 
@@ -155,7 +155,7 @@ it can contain several styles separated with comas.
 
 ### JSONGraph methods
 
-#### <a href="import"></a>JSONGraph.import
+#### <a name="import"></a>JSONGraph.import
 
 ``static JSONGraph import(string pathOrJSON)``
 
@@ -247,7 +247,7 @@ An alias of the ``generate`` method.
 
 > *Returns*: ``JSONGraph.SVG`` - the generated svg.
     
-#### <a href="save"></a>JSONGraph#save
+#### <a name="save"></a>JSONGraph#save
 
 ``JSONGraph save(string path[, object dotOpts[, function cb(string error)]])``   
 ``JSONGraph save(string path[, object dotOpts[, boolean sync]])``   
@@ -295,7 +295,7 @@ function. For more information about this arguments, see the
 
 > *Returns*: ``string`` - the stringified JSONGraph object.
 
-#### <a href="addRaw"></a>JSONGraph#addRaw
+#### <a name="addRaw"></a>JSONGraph#addRaw
 
 ``number addRaw(string raw)``
   
@@ -306,7 +306,7 @@ Adds a new node to the graph with its attributes.
 
 > *Returns*: ``number`` - the [statement](#statements) index that corresponds to the added raw statement.
 
-#### <a href="addNode"></a>JSONGraph#addNode
+#### <a name="addNode"></a>JSONGraph#addNode
 
 ``number addNode(string name[, object attrs])``
   
@@ -318,7 +318,7 @@ Adds a new node to the graph with its attributes.
 
 > *Returns*: ``number`` - the [statement](#statements) index that corresponds to the added node.
 
-#### <a href="addEdge"></a>JSONGraph#addEdge
+#### <a name="addEdge"></a>JSONGraph#addEdge
 
 ``number addEdge((string|number|object)[] nodes[, object attrs])``
   
@@ -332,11 +332,11 @@ and the cell name as the value.
 
 > *Returns*: ``number`` - the [statement](#statements) index that corresponds to the added edge.
 
-#### <a href="linkNodes"></a>JSONGraph#linkNodes
+#### <a name="linkNodes"></a>JSONGraph#linkNodes
 
 An alias of the [``JSONGraph#addEdge``](#addEdge) method.
 
-#### <a href="addStruct"></a>JSONGraph#addStruct
+#### <a name="addStruct"></a>JSONGraph#addStruct
 
 ``number addStruct(string name, Array nodes[, object attrs])``
   
@@ -361,7 +361,7 @@ o.addStruct("struct2", [[["A", "B"], ["C", "D"]]]);
 o.linkNodes([{struct1:"A"}, {struct2:"C"}]);
 ```
 
-#### <a href="addSubgraph"></a>JSONGraph#addSubgraph
+#### <a name="addSubgraph"></a>JSONGraph#addSubgraph
 
 ``number addSubgraph(JSONGraph|object graph)``
   
@@ -372,7 +372,7 @@ Adds a subgraph.
 
 > *Returns*: ``number`` - the [statement](#statements) index that corresponds to the added subgraph.
 
-## <a href="JSONGraph.SVG"></a>JSONGraph.SVG class
+## <a name="JSONGraph.SVG"></a>JSONGraph.SVG class
 
 This class is created by the ``JSONGraph#generate`` and ``JSONGraph#save`` methods.
 It contains the generated svg text and allows it to be saved.
@@ -418,7 +418,7 @@ Saves the svg text to the given destination path.
 
 > *Returns*: ``JSONGraph.SVG`` - this isntance to chain actions.
     
-## <a href="JSONGraph.HTML"></a>JSONGraph.HTML class
+## <a name="JSONGraph.HTML"></a>JSONGraph.HTML class
 
 This class is used to insert HTML content inside ``label``
 [DOT attributes](https://www.graphviz.org/doc/info/attrs.html)
@@ -460,7 +460,7 @@ Returns the html content.
 
 > *Returns*: ``string`` - the html content.
 
-## <a href="JSONGraph.Raw"></a>JSONGraph.Raw class
+## <a name="JSONGraph.Raw"></a>JSONGraph.Raw class
 
 This class is used to insert raw content in a statement or an attribute.
 * When used for a statement, the string is used as raw string (html special chars and quotes are not escaped).
@@ -507,7 +507,7 @@ Returns the raw content.
 
 > *Returns*: ``string`` - the raw content.
     
-## <a href="AdditionalAttributes"></a>Additional attributes
+## <a name="AdditionalAttributes"></a>Additional attributes
 
 In addition of the [DOT language attributes](https://www.graphviz.org/doc/info/attrs.html),
 *jsonviz* provides its own attributes :
@@ -525,7 +525,7 @@ styles are the following ones:
     * ``underline`` or ``u``
     * ``stroke`` or ``s``
 
-## <a href="extensions"></a>Extensions
+## <a name="extensions"></a>Extensions
 
 For now, jsonviz only have one extension. You can easilly add your own extension by
 creating a ``.js`` file and then exporting a function that takes the ``JSONGraph``
@@ -559,7 +559,7 @@ exports = module.exports = function(JSONGraph)
 };
 ```
 
-### <a href="jsdoc"></a>JSDoc
+### <a name="jsdoc"></a>JSDoc
 
 This extension allows to read the classes as generated with JSDoc and then generate
 a class diagram (without members).
@@ -600,7 +600,7 @@ for(; i < classes.length; i++)
 }
 ```
 
-#### <a href="JSONGraph.JSDoc.getClassesByName"></a>JSONGraph.JSDoc.getClassesByName
+#### <a name="JSONGraphJSDoc_getClassesByName"></a>JSONGraph.JSDoc.getClassesByName
 
 ``static object JSONGraph.JSDoc.getClassesByName(object[] classes)``
 
@@ -610,8 +610,8 @@ of each class.
 The associative array will also be added in a ``byNames`` property of the passed argument.
 If this property is already defined, it will be returned without any new computation.
 
-> *Note*: this method calls [JSONGraph.JSDoc.getClassesByName](#JSONGraph.JSDoc.getClassesByName) method,
-and the [JSONGraph.JSDoc.addSubClasses](#JSONGraph.JSDoc.addSubClasses) if ``opts.children`` is true.
+> *Note*: this method calls [JSONGraph.JSDoc.getClassesByName](#JSONGraphJSDoc_getClassesByName) method,
+and the [JSONGraph.JSDoc.addSubClasses](#JSONGraphJSDoc_addSubClasses) if ``opts.children`` is true.
 
 > *Arguments*: 
 * ``object[] classes``: the classes as it is returned in the JSDoc's ``helper.getMembers()``
@@ -621,16 +621,16 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
 > *Returns*: ``object`` - an associative array (i.e. an object) of  JSDoc classes from which the key is the long name
 of each class.
 
-#### <a href0"JSONGraph.JSDoc.addSubClasses"></a>JSONGraph.JSDoc.addSubClasses
+#### <a href0"JSONGraphJSDoc_addSubClasses"></a>JSONGraph.JSDoc.addSubClasses
 
 ``static object JSONGraph.JSDoc.addSubClasses(object[] classes)``
 
 Adds the sub-classes in a ``string[] subClasses`` property (stores the long name as the ``augments`` property),
 of each class in the argument array.
-It requires to call the [JSONGraph.JSDoc.getClassesByName](#JSONGraph.JSDoc.getClassesByName) method.
+It requires to call the [JSONGraph.JSDoc.getClassesByName](#JSONGraphJSDoc_getClassesByName) method.
 
-> *Note*: this method calls the [JSONGraph.JSDoc.getClassesByName](#JSONGraph.JSDoc.getClassesByName) method,
-and the [JSONGraph.JSDoc.addSubClasses](#JSONGraph.JSDoc.addSubClasses) if ``opts.children`` is true.
+> *Note*: this method calls the [JSONGraph.JSDoc.getClassesByName](#JSONGraphJSDoc_getClassesByName) method,
+and the [JSONGraph.JSDoc.addSubClasses](#JSONGraphJSDoc_addSubClasses) if ``opts.children`` is true.
 
 > *Arguments*: 
 * ``object[] classes``: the classes as it is returned in the JSDoc's ``helper.getMembers()``
@@ -640,15 +640,15 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
 > *Returns*: ``object`` - an associative array (i.e. an object) of  JSDoc classes from which the key is the long name
 of each class.
 
-#### JSONGraph#fromJSDoc
+#### <a name="fromJSDoc"></a>JSONGraph#fromJSDoc
 
 ``JSONGraph JSONGraph.fromJSDoc(object[] classes, object opts)``
 
 Adds all the statements to the ``JSONGraph`` instance to create the proper class
 diagram from JSDoc.
 
-> *Note*: this method calls [JSONGraph.JSDoc.getClassesByName](#JSONGraph.JSDoc.getClassesByName) method,
-and the [JSONGraph.JSDoc.addSubClasses](#JSONGraph.JSDoc.addSubClasses) if ``opts.children`` is true.
+> *Note*: this method calls [JSONGraph.JSDoc.getClassesByName](#JSONGraphJSDoc_getClassesByName) method,
+and the [JSONGraph.JSDoc.addSubClasses](#JSONGraphJSDoc_addSubClasses) if ``opts.children`` is true.
 
 > *Arguments*: 
 * ``object[] classes``: the classes as it is returned in the JSDoc's ``helper.getMembers()``
@@ -673,7 +673,7 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
 * ``node_class``: redefines the class style. By default: shape="rect" and style="rounded,filled"
 * ``class``: an additional style for the *class* nodes
 
-## <a href="DOTLanguage"></a>DOT language
+## <a name="DOTLanguage"></a>DOT language
 
 The jsonviz module produces DOT language and then svg graphics with the
 [viz.js](https://www.npmjs.com/package/viz.js) module. For more information,
@@ -683,7 +683,7 @@ here are some documentations on the GraphViz web site:
 * [Attribute reference](https://www.graphviz.org/doc/info/attrs.html)
 * [Shape reference](https://www.graphviz.org/doc/info/shapes.html)
 
-## <a href="versionChanges"></a>Version changes
+## <a name="versionChanges"></a>Version changes
 
 ### 0.0.x
 
@@ -705,6 +705,6 @@ the default ``sync`` value (true) and then uses a synchronous saving.
 * Adds the extension management:
     * Adds the [``JSONGraph#extends``](#extends) method
 * Adds the JSDoc extension:
-    * Adds the [``JSONGraph.JSDoc.getClassesByName``](#JSONGraph.JSDoc.getClassesByName) method
-    * Adds the [``JSONGraph.JSDoc.addSubClasses``](#JSONGraph.JSDoc.addSubClasses) method
+    * Adds the [``JSONGraph.JSDoc.getClassesByName``](#JSONGraphJSDoc_getClassesByName) method
+    * Adds the [``JSONGraph.JSDoc.addSubClasses``](#JSONGraphJSDoc_addSubClasses) method
     * Adds the [``JSONGraph#fromJSDoc``](#fromJSDoc) method
