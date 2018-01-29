@@ -117,7 +117,7 @@ exports = module.exports = function(JSONGraph)
         {
             if(!__added[oClass.longname])
             {
-                var a = {ref: ["node_class"]};
+                var a = {ref: ["node_class", "class"]};
                 a.textstyle = [];
                 if(select)
                 {
