@@ -135,6 +135,18 @@ the ``(string|string[]) ref`` attribute. It can also be used instead
 of the attribute list in a statement or for inside the global styles
 (``graph``, ``node``, ``edge``).
 
+#### ``object[] css``
+
+Some css to put inside the svg itself. It can be usefull to have local svg, but
+it is essentially used if a global style does not affect the svg itself (for example,
+changin the cursor on the anchor elements).
+
+A css array is a collection of key-style pairs:
+* `string|string[] select`: one or more [css selectors](https://www.w3schools.com/cssref/css_selectors.asp)
+on which to apply the style.
+* `object style`: the style as a property-value object (like ``{cursor: pointer}``).
+CSS properties that use a dash can be put between double quotes or removes the dash
+and set the case to the following character to upper case.
 
 #### <a name="statements"><a>``(string|JSONGraph|object)[] statements``
 
