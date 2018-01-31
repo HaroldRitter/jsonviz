@@ -154,8 +154,10 @@ exports = module.exports = function(JSONGraph)
                 {
                     c = cp = classes[members[i]];
                     
-                    this._addUMLClass(c, false, opts);
+                    if(!c) continue;
                     
+                    this._addUMLClass(c, false, opts);
+                
                     if(desc)
                     {
                         cp = cl;
