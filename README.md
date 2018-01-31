@@ -191,7 +191,7 @@ See the doc of the ``pathOrJSON`` argument of the [``JSONGraph.import``](#import
 
 > *Returns*: ``JSONGraph.SVG`` - the generated SVG.
 
-#### JSONGraph.extends
+#### <a name="extends"></a>JSONGraph.extends
 
 ``static function extends(moduleName)``   
 
@@ -278,7 +278,7 @@ Clones the ``JSONGraph`` instance by deeply copying all the attributes.
 
 > *Returns*: ``JSONGraph`` - the cloned instance.
   
-#### JSONGraph#toJSON
+#### <a name="toJSON"></a>JSONGraph#toJSON
 
 ``string toJSON([function|(string|number)[] replacer[, string|number space]])``
   
@@ -621,7 +621,7 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
 > *Returns*: ``object`` - an associative array (i.e. an object) of  JSDoc classes from which the key is the long name
 of each class.
 
-#### <a href0"JSONGraphJSDoc_addSubClasses"></a>JSONGraph.JSDoc.addSubClasses
+#### <a name="JSONGraphJSDoc_addSubClasses"></a>JSONGraph.JSDoc.addSubClasses
 
 ``static object JSONGraph.JSDoc.addSubClasses(object[] classes)``
 
@@ -687,7 +687,7 @@ here are some documentations on the GraphViz web site:
 
 ### 0.0.x
 
-Creates the [``JSONGraph``](#JSONGraph), [``JSONGraph.SVG``](#JSONGraph.SVG) and [``JSONGraph.HTML``](#JSONGraph.HTML) classes.
+Creates the [``JSONGraph``](#JSONGraphClass), [``JSONGraph.SVG``](#JSONGraph.SVG) and [``JSONGraph.HTML``](#JSONGraph.HTML) classes.
 
 ### 0.1.x
 * Can instanciate a JSONGraph without any arguments
@@ -696,6 +696,7 @@ the default ``sync`` value (true) and then uses a synchronous saving.
 * Adds JSON import / export:
     * Adds the [``JSONGraph.import``](#import) method
     * Adds the [``JSONGraph#toJSON``](#toJSON) method
+* Adds the [``JSONGraph.Raw``](#JSONGraph.Raw) class
 * Adds the build methods:
     * Adds the [``JSONGraph#addRaw``](#addRaw) method
     * Adds the [``JSONGraph#addNode``](#addNode) method
