@@ -142,24 +142,30 @@ exports = module.exports = function(JSONGraph)
         
         _getUMLFamily: {value : function(cl, classes, prop, desc, opts)
         {
-            var i = 0, c, a, tt, members = cl[prop];
+            var i = 0, c, cp, cc = cl, a, tt, members = cl[prop];
             
             if(members)
             {
                 for(; i < members.length; i++)
                 {
-                    c = classes[members[i]];
+                    c = cp = classes[members[i]];
                     
                     this._addUMLClass(c, false, opts);
                     
-                    tt = cl.longname + (c.virtual ? " implements " : " extends ") + c.longname;
+                    if(desc)
+                    {
+                        cp = cl;
+                        cc = c;
+                    }
+                    
+                    tt = cc.longname + (cp.virtual ? " implements " : " extends ") + cp.longname;
                     a = {edgetooltip: tt, ref: ["edge_extends", "extends"]};
-                    if(c.virtual)
+                    if(cp.virtual)
                     {
                         a.ref.push("edge_implements", "implements");
                     }
                     
-                    this.addEdge(desc ? [c.longname, cl.longname] : [cl.longname, c.longname], a);
+                    this.addEdge([cc.longname, cp.longname], a);
                     this._getUMLFamily(c, classes, prop, desc, opts);
                 }
             }
