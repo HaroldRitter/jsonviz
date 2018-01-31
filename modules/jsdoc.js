@@ -1,5 +1,9 @@
+var util = require("jsonviz/util");
+
 exports = module.exports = function(JSONGraph)
 {
+    util = util(JSONGraph);
+    
 // -------------------- Public Static Methods -------------------- //
 
     JSONGraph.JSDoc =
@@ -126,15 +130,19 @@ exports = module.exports = function(JSONGraph)
             if(!__added[oClass.longname])
             {
                 var a = {ref: ["node_class", "class"]};
-                a.textstyle = [];
+                a.label = new JSONGraph.HTML(util.escapeHTML(oClass.longname));
                 if(select)
                 {
                     a.ref.push("node_selected");
-                    a.textstyle.push("bold");
+                    a.label.content = "<b>" + a.label.content + "</b>";
                 }
                 if(oClass.virtual)
                 {
-                    a.textstyle.push("italic");
+                    a.label.content = "<i>" + a.label.content + "</i>";
+                }
+                if(oClass.final)
+                {
+                    a.label.content += "<br/>{final}";
                 }
                 __added[oClass.longname] = true;
                 oClass.fullname = a.tooltip = (oClass.virtual ? "abstract " : (oClass.final ? "final " : "")) +
