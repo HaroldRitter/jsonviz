@@ -18,6 +18,7 @@ function JSONGraph(opts)
     this.node = opts && opts.node || {};
     this.edge = opts && opts.edge || {};
     this.styles = opts && opts.styles || {};
+    this.css = opts && opts.css || [];
     this.statements = opts && (opts.statements || opts.stmts) || [];
     
     this._computedDot = null;
@@ -93,6 +94,7 @@ JSONGraph.prototype.generate = function(dotOpts)
     {
         o = Viz(d, dotOpts);
         o = new JSONGraph.SVG(o);
+        __addCSS(o, this.css);
     }
     catch(e)
     {
@@ -123,6 +125,7 @@ JSONGraph.prototype.clone = function(name)
         node: util.clone(this.node),
         edge: util.clone(this.edge),
         styles: util.clone(this.styles),
+        css: util.clone(this.css),
         statements: util.clone(this.statements)
     });
 };
@@ -139,6 +142,7 @@ JSONGraph.prototype.toJSON = function(replace, space)
         node: this.node,
         edge: this.edge,
         styles: this.styles,
+        css: this.css,
         statements: this.statements
     }, replace, space);
 };
@@ -463,6 +467,17 @@ function __structElt(e)
 function __struct(a)
 {
     return a.map(__structElt).join(" | ");
+}
+
+// --> SVG
+
+function __addCSS(svg, css)
+{
+    var s = util.css(css);
+    if(s)
+    {
+        svg.text = svg.text.replace(/(<svg .*?>)/, "$1\n" + s);
+    }
 }
 
 // -------------- EXPORTS THE MODULE -------------- //
