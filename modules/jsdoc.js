@@ -59,8 +59,13 @@ exports = module.exports = function(JSONGraph)
 
     JSONGraph.prototype.fromJSDoc = function(classes, opts)
     {
-        var oClass, s = this.styles,
-            byName = JSONGraph.JSDoc.getClassesByName(classes);
+        var byName = JSONGraph.JSDoc.getClassesByName(classes),
+            oClass = byName[opts.className], s = this.styles;
+            
+        if(!oClass)
+        {
+            throw new Error("Class not found : " + opts.className);
+        }
         
         __added = {};
             
@@ -90,7 +95,6 @@ exports = module.exports = function(JSONGraph)
         
         // > Gets the class by names and all sub-classes
         JSONGraph.JSDoc.addSubClasses(classes);
-        oClass = byName[opts.className];
         
         // > Resets
         this.reset();
