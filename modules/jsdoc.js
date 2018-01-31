@@ -26,7 +26,7 @@ exports = module.exports = function(JSONGraph)
         {
             if(classes.length && !classes[0].subClasses)
             {
-                var i = 0, j, c, ps,
+                var i = 0, j, c, ps, p,
                     byName = this.getClassesByName(classes);
                 
                 for(; i < classes.length; i++)
@@ -41,7 +41,11 @@ exports = module.exports = function(JSONGraph)
                     {
                         for(j = 0; j < ps.length; j++)
                         {
-                            byName[ps[j]].subClasses.push(c.longname);
+                            p = byName[ps[j]];
+                            if(p)
+                            {
+                                p.subClasses.push(c.longname);
+                            }
                         }
                     }
                 }
