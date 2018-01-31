@@ -28,6 +28,22 @@ function __clone(v)
     return v && typeof(v) == "object" ? (v instanceof Array ? __cloneA(v) : __cloneO(v)) : v;
 }
 
+// --> CSS
+
+function __buildStyle(style)
+{
+    var n, s = "";
+    if(style)
+    {
+        for(n in style)
+        {
+            n = n.replace(/([a-z])([A-Z])/g, function(r){ return r[1] + "-" + r[0].toLowerCase()});
+            s += "\t" + n + ": " + style[n] + ";\n";
+        }
+    }
+    return s;
+}
+
 // ----------------------- Public Functions ----------------------- //
 
 exports = module.exports = function(JSONGraph)
@@ -69,6 +85,24 @@ exports = module.exports = function(JSONGraph)
                 return "<" + s + ">";
             }
             return "\"" + this.escapeHTML(this.escapeString(s)) + "\"";
+        },
+        
+    // --> CSS
+    
+        css: function(css)
+        {
+            var i = 0, s = "", d, c;
+            if(css && css.length)
+            {
+                for(; i < css.length; i++)
+                {
+                    c = css[i];
+                    d = c.select;
+                    s += (d instanceof Array ? d.join(", ") : d) + "\n{\n" + __buildStyle(c.style) + "}";
+                }
+            }
+            return s;
         }
+        
     };
 };
