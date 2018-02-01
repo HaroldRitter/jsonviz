@@ -2,8 +2,6 @@ var util = require("jsonviz/util");
 
 exports = module.exports = function(JSONGraph)
 {
-    util = util(JSONGraph);
-    
 // -------------------- Public Static Methods -------------------- //
 
     JSONGraph.JSDoc =

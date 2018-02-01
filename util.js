@@ -1,5 +1,8 @@
 "use strict";
 
+var raw = require("jsonviz/raw.class"),
+    html = require("jsonviz/html.class");
+
 // ----------------------- Private Functions ----------------------- //
 // Declared before the public ones to link them in the exported object
 
@@ -46,63 +49,60 @@ function __buildStyle(style)
 
 // ----------------------- Public Functions ----------------------- //
 
-exports = module.exports = function(JSONGraph)
-{
-    return {
-    // --> Clone
+exports = module.exports = {
+// --> Clone
+
+    clone: __clone,
     
-        clone: __clone,
-        
-    // --> Escape
+// --> Escape
+
+    escapeHTML: function(s)
+    {
+        return s.toString() 
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&apos;");
+    },
     
-        escapeHTML: function(s)
-        {
-            return s.toString() 
-                        .replace(/&/g, "&amp;")
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;")
-                        .replace(/"/g, "&quot;")
-                        .replace(/'/g, "&apos;");
-        },
-        
-        escapeString: function(s, single)
-        {
-            return s.toString()
-                        .replace(/\\/g, "\\\\")
-                        .replace(/\r/g, "\\r")
-                        .replace(/\n/g, "\\n")
-                        .replace(single ? /'/g : /"/g, single ? "\\'" : '\\"');
-        },
-        
-        ID: function(s)
-        {
-            if(s instanceof JSONGraph.Raw)
-            {
-                return "\"" + this.escapeString(s) + "\"";
-            }
-            if(s instanceof JSONGraph.HTML)
-            {
-                return "<" + s + ">";
-            }
-            return "\"" + this.escapeHTML(this.escapeString(s)) + "\"";
-        },
-        
-    // --> CSS
+    escapeString: function(s, single)
+    {
+        return s.toString()
+                    .replace(/\\/g, "\\\\")
+                    .replace(/\r/g, "\\r")
+                    .replace(/\n/g, "\\n")
+                    .replace(single ? /'/g : /"/g, single ? "\\'" : '\\"');
+    },
     
-        css: function(css)
+    ID: function(s)
+    {
+        if(s instanceof raw)
         {
-            var i = 0, s = "", d, c;
-            if(css && css.length)
-            {
-                for(; i < css.length; i++)
-                {
-                    c = css[i];
-                    d = c.select;
-                    s += (d instanceof Array ? d.join(", ") : d) + "\n{\n" + __buildStyle(c.style) + "}";
-                }
-            }
-            return s;
+            return "\"" + this.escapeString(s) + "\"";
         }
-        
-    };
+        if(s instanceof html)
+        {
+            return "<" + s + ">";
+        }
+        return "\"" + this.escapeHTML(this.escapeString(s)) + "\"";
+    },
+    
+// --> CSS
+
+    css: function(css)
+    {
+        var i = 0, s = "", d, c;
+        if(css && css.length)
+        {
+            for(; i < css.length; i++)
+            {
+                c = css[i];
+                d = c.select;
+                s += (d instanceof Array ? d.join(", ") : d) + "\n{\n" + __buildStyle(c.style) + "}";
+            }
+        }
+        return s;
+    }
+    
 };

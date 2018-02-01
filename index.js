@@ -24,9 +24,6 @@ function JSONGraph(opts)
     this._computedDot = null;
 }
 
-// --> Sets util
-util = JSONGraph.util = util(JSONGraph);
-
 // ------------ JSONGraph Public Static Methods ------------ //
 
 JSONGraph.import = function(json)
