@@ -15,6 +15,7 @@ script before it is created.
 1. [JSONGraph.Raw class](#JSONGraph.Raw)
 1. [Additional attributes](#AdditionalAttributes)
 1. [Extensions](#extensions) | <sub><sup>[JSDoc](#jsdoc)</sup></sub>
+1. [Util](#Util)
 1. [DOT language](#DOTLanguage)
 1. [Version changes](#versionChanges)
 
@@ -135,18 +136,13 @@ the ``(string|string[]) ref`` attribute. It can also be used instead
 of the attribute list in a statement or for inside the global styles
 (``graph``, ``node``, ``edge``).
 
-#### ``object[] css``
+#### <a name="cssAttr"></a>``object[] css``
 
 Some css to put inside the svg itself. It can be usefull to have local svg, but
 it is essentially used if a global style does not affect the svg itself (for example,
 changin the cursor on the anchor elements).
 
-A css array is a collection of key-style pairs:
-* `string|string[] select`: one or more [css selectors](https://www.w3schools.com/cssref/css_selectors.asp)
-on which to apply the style.
-* `object style`: the style as a property-value object (like ``{cursor: pointer}``).
-CSS properties that use a dash can be put between double quotes or removes the dash
-and set the case to the following character to upper case.
+For more information on the format of a css array, see [util.css](#util.css)
 
 #### <a name="statements"><a>``(string|JSONGraph|object)[] statements``
 
@@ -246,7 +242,6 @@ Generates the final svg graph text according to the attributes values.
 * ``object dotOpts={}``: the [viz.js graph creation options](https://www.npmjs.com/package/viz.js#vizsrc-options-formatsvg-enginedot-scale-images-path-width-height--totalmemory16777216-)
 
 > *Returns*: ``JSONGraph.SVG`` - the generated svg.
-
 
 #### JSONGraph#svg
 
@@ -685,6 +680,134 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
 * ``node_class``: redefines the class style. By default: shape="rect" and style="rounded,filled"
 * ``class``: an additional style for the *class* nodes
 
+#### <a name="fromJSDoc"></a>JSONGraph#fromJSDoc
+
+``JSONGraph JSONGraph.fromJSDoc(object[] classes, object opts)``
+
+Adds all the statements to the ``JSONGraph`` instance to create the proper class
+diagram from JSDoc.
+
+> *Note*: this method calls [JSONGraph.JSDoc.getClassesByName](#JSONGraphJSDoc_getClassesByName) method,
+and the [JSONGraph.JSDoc.addSubClasses](#JSONGraphJSDoc_addSubClasses) if ``opts.children`` is true.
+
+> *Arguments*: 
+* ``object[] classes``: the classes as it is returned in the JSDoc's ``helper.getMembers()``
+from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc default template) or by using
+``taffyData({kind: 'class'}).get()``.
+* ``object opts``: the creation options
+    * ``string className``: the class from which to create the diagram (it must be the long name of the class).
+    This is the only required option.
+    * ``boolean opts.changeName=true``: if true, the diagrm name is changed for "class " <className> " diagram"
+    * ``boolean opts.reset=true``: if true, the previous satements are deleted before the new one are created
+    * ``boolean opts.parents=true``: if true, the diagram includes all the parents
+    * ``boolean opts.children=true``: if true, the diagram includes all the children
+    * ``boolean opts.select=true``: if true, the given class will use the node_selected style and it will appear in bold.
+    * ``boolean opts.links=false``: if true, the class rects are clickables
+
+> *Returns*: ``JSONGraph`` - this isntance to chain actions.
+
+> *Styles*: the following styles can be added to the ``JSONGraph`` instance frmo which this method is called :
+* ``node_selected``: applied on the node from which the graph is drawn
+* ``extends``: an additional style for the *extends* and *implements* arrows (alos use an internal ``edge_extends`` style with arrowhead=empty)
+* ``implements``: an additional style for the *implements* arrows (alos use an internal ``edge_implements`` style with style=dashed).
+* ``node_class``: redefines the class style. By default: shape="rect" and style="rounded,filled"
+* ``class``: an additional style for the *class* nodes
+
+## <a name="Util"></a>Util
+
+The **jsonviz** library includes a **util** module that is used internally.
+It could be usefull to share its content.
+
+### Include
+
+```js
+var util = require("jsonviz/util");
+```
+
+### util.escapeString
+
+```string util.escapeString(string src[, boolean single])```
+
+Escapes a string by adding an anti-slash before simple or double quotes.
+
+> *Arguments*: 
+* ``string src``: the source
+* ``boolean single=false``: if true, escape the string to put it between single quotes, else escapes it for double quotes.
+
+> *Returns*: ``string`` - the escaped string (without surrounding quotes)
+
+### util.escapeHTML
+
+```string util.escapeHTML(string src)```
+
+Escapes a string to be inserted in an HTML content as a pure string
+by replacing HTML specials characters with HTML entities.
+For example: `` -> `` becomes `` -&gt; ``.
+
+> *Arguments*: 
+* ``string src``: the source
+
+> *Returns*: ``string`` - the string escaped for html
+
+### util.clone
+
+```object|Array util.clone(object|Array original)```
+
+Deeply clones an object or an array by cloniing each object/array inside it.
+
+Limitationms:
+* The [non-enumerable properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
+of an object are not copied in the cloned one.
+* If an array also contain additional attributes, there are not copied. In other words,
+for arrays, only indexed data are copied.
+
+> *Arguments*: 
+* ``object|Array original``: the object to clone
+
+> *Returns*: ``object|Array`` - the cloned object
+
+### <a name="util.css"></a>util.css
+
+```string util.css(object[] css)```
+
+Converts a JavaScript object css desacription to a formatted css string.
+
+Example:
+```js
+util.css([
+    {
+        select: "a",
+        style: {cursor: "pointer"}
+    },
+    {
+        select: [".myClass", ".myOtherClass div"],
+        style: {backgroundColor: "#eee"} // Or {"background-color": "#eee"}
+    }
+]);
+```
+
+Returns the css string:
+```css
+a
+{
+    cursor: pointer;
+}
+.myClass, .myOtherClass div
+{
+    background-color: #eee;
+}
+```
+
+> *Arguments*: 
+* ``object[] css``: the description of the css. A css description array is a collection of key-style pairs:
+    * `string|string[] select`: one or more [css selectors](https://www.w3schools.com/cssref/css_selectors.asp)
+    on which to apply the style.
+    * `object style`: the style as a property-value object (like ``{cursor: pointer}``).
+    CSS properties that use a dash can be put between double quotes or removes the dash
+    and set the case to the following character to upper case.
+
+> *Returns*: ``string`` - the css formatted style
+
 ## <a name="DOTLanguage"></a>DOT language
 
 The jsonviz module produces DOT language and then svg graphics with the
@@ -702,6 +825,7 @@ here are some documentations on the GraphViz web site:
 Creates the [``JSONGraph``](#JSONGraphClass), [``JSONGraph.SVG``](#JSONGraph.SVG) and [``JSONGraph.HTML``](#JSONGraph.HTML) classes.
 
 ### 0.1.x
+
 * Can instanciate a JSONGraph without any arguments
 * The [``JSONGraph#save``](#save) ``cb`` argument is not passed, jsonviz will use
 the default ``sync`` value (true) and then uses a synchronous saving.
@@ -721,3 +845,10 @@ the default ``sync`` value (true) and then uses a synchronous saving.
     * Adds the [``JSONGraph.JSDoc.getClassesByName``](#JSONGraphJSDoc_getClassesByName) method
     * Adds the [``JSONGraph.JSDoc.addSubClasses``](#JSONGraphJSDoc_addSubClasses) method
     * Adds the [``JSONGraph#fromJSDoc``](#fromJSDoc) method
+
+### 0.2.x
+
+* JSDoc: recognizes the ``final`` flag.
+* Documents the [``util``](#Util) library
+* Adds the [``util.css``](#util.css) method
+* Adds the [``JSONGraph#css``](#cssAttr) attribute
