@@ -344,76 +344,26 @@ Object.defineProperties(JSONGraph.prototype,
 // ---------------------------------------------- //
 // ------------ CLASS JSONGraph.SVG ------------ //
 
-JSONGraph.SVG = function(txt)
+Object.defineProperty(JSONGraph, "SVG",
 {
-    this.text = txt;
-};
-
-// ------------ Public Methods ------------ //
-
-JSONGraph.SVG.prototype.toString = function()
-{
-    return this.text;
-};
-
-JSONGraph.SVG.prototype.save = function(path, cb)
-{
-    if(cb === true || cb === undefined)
-    {
-        fs.writeFileSync(path, this.text);
-    }
-    else
-    {
-        fs.writeFile(path, this.text, cb);
-    }
-    return this;
-};
+    value: require("jsonviz/svg.class")
+});
 
 // ---------------------------------------------- //
 // -------------- CLASS JSONGraph.HTML -------------- //
 
 Object.defineProperty(JSONGraph, "HTML",
-    {
-        value: function(content)
-        {
-            if(this instanceof JSONGraph.HTML)
-            {
-                this.content = content || "";
-            }
-            else
-            {
-                return new JSONGraph.HTML(content);
-            }
-        }
-    });
-
-JSONGraph.HTML.prototype.toString = function()
 {
-    return this.content;
-};
+    value: require("jsonviz/html.class")
+});
 
 // ---------------------------------------------- //
 // -------------- CLASS JSONGraph.Raw -------------- //
 
 Object.defineProperty(JSONGraph, "Raw",
-    {
-        value: function(content)
-        {
-            if(this instanceof JSONGraph.Raw)
-            {
-                this.content = content || "";
-            }
-            else
-            {
-                return new JSONGraph.Raw(content);
-            }
-        }
-    });
-
-JSONGraph.Raw.prototype.toString = function()
 {
-    return this.content;
-};
+    value: require("jsonviz/raw.class")
+});
 
 // -------------- PRIVATE -------------- //
 
