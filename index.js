@@ -423,7 +423,7 @@ function __addCSS(svg, css)
     var s = util.css(css);
     if(s)
     {
-        svg.text = svg.text.replace(/(<svg .*?>)/, "$1\n" + s);
+        svg.text = svg.text.replace(/<svg .*?>/, "$&\n" + s);
     }
 }
 
