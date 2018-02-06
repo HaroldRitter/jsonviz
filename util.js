@@ -35,13 +35,13 @@ function __clone(v)
 
 function __buildStyle(style)
 {
-    var n, s = "";
+    var n, n2, s = "";
     if(style)
     {
         for(n in style)
         {
-            n = n.replace(/([a-z])([A-Z])/g, function(r, a, b){ return a + "-" + b.toLowerCase()});
-            s += "\t" + n + ": " + style[n] + ";\n";
+            n2 = n.replace(/([a-z])([A-Z])/g, function(r, a, b){ return a + "-" + b.toLowerCase()});
+            s += "\t" + n2 + ": " + style[n] + ";\n";
         }
     }
     return s;
