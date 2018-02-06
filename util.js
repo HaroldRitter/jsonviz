@@ -99,6 +99,7 @@ exports = module.exports = {
             {
                 c = css[i];
                 d = c.select;
+                if(i) s += "\n";
                 s += (d instanceof Array ? d.join(", ") : d) + "\n{\n" + __buildStyle(c.style) + "}";
             }
         }
