@@ -40,7 +40,7 @@ function __buildStyle(style)
     {
         for(n in style)
         {
-            n = n.replace(/([a-z])([A-Z])/g, function(r){ return r[1] + "-" + r[0].toLowerCase()});
+            n = n.replace(/([a-z])([A-Z])/g, function(r, a, b){ return a + "-" + b.toLowerCase()});
             s += "\t" + n + ": " + style[n] + ";\n";
         }
     }
