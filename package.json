@@ -1,6 +1,6 @@
 {
   "name": "jsonviz",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A Node.js module that converts JSON to DOT language and can create GraphViz graphics with viz.js (without installing GraphViz)",
   "main": "index.js",
   "scripts": {
