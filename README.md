@@ -601,7 +601,7 @@ for(; i < classes.length; i++)
     // Creates graph for the given class
     //  - By default, the statements are removed before, so the graph will not cumulate the previous classes
     //  - The graph will create the links to each class documentation
-    graph   .fromJSDoc(members.classes, {className: c.longname, links: true})
+    graph   .fromJSDoc(members.classes, {className: c.longname, links: function(c){return "#" + c.longname;} /* or just true to get the lng name + ".html" */})
     // Saves the graph
             .save(c.longname + ".svg", true);
 }
@@ -669,7 +669,8 @@ from *jsdoc/util/templateHelper* (see in the publish.js file of the JSDoc defaul
     * ``boolean opts.parents=true``: if true, the diagram includes all the parents
     * ``boolean opts.children=true``: if true, the diagram includes all the children
     * ``boolean opts.select=true``: if true, the given class will use the node_selected style and it will appear in bold.
-    * ``boolean opts.links=false``: if true, the class rects are clickables
+    * ``boolean|function opts.links=false``: if true, the class rects are clickables. A function can be used instead
+    of a boolean to format the link. This function takes the doclet as argument.
 
 > *Returns*: ``JSONGraph`` - this isntance to chain actions.
 

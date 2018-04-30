@@ -147,7 +147,7 @@ exports = module.exports = function(JSONGraph)
                                         "class " + oClass.longname;
                 if(opts.links)
                 {
-                    a.URL = oClass.longname + ".html";
+                    a.URL = typeof(opts.links) == "function" ? opts.links(oClass) : oClass.longname + ".html";
                 }
                 this.addNode(oClass.longname, a);
             }
